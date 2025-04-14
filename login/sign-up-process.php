@@ -10,7 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirm = $_POST["confirm-password"];
 
     // Validate the input to prevent SQL injection
-    $stmt = $conn->prepare("SELECT Password FROM user WHERE Username = ?");
+    $sql = "SELECT Username FROM user WHERE Username = ?";
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -19,7 +20,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($row = $result->fetch_assoc()) {
         header("Location: user-sign-up.html?error=exists");
         exit();
-    } 
+    }
+
+    // Check if the email already exists in the database
+    $sql = "SELECT Email FROM user WHERE Email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        header("Location: user-sign-up.html?error=email-exists");
+        exit();
+    }
+
     // Check if the email format is valid
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         header("Location: user-sign-up.html?error=invalid-email");
@@ -29,9 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hash the password before storing
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Use prepared statement to insert the new user into the database
-    $stmt = $conn->prepare("INSERT INTO user (Username, Password, Email) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $hashedPassword, $email); 
+    // Set default images for profile pic and banner pic
+    $profileImg = "../assets/img/default.jpg";
+    $bannerImg = "../assets/img/default_banner.jpg";
+
+    // Insert the new user into the database
+    $sql = "INSERT INTO user (Username, Email, Password, Profile_Img, Banner_Img) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssss", $username, $email, $hashedPassword, $profileImg, $bannerImg); 
 
     // Check if the sql query was successful
     if ($stmt->execute()) {

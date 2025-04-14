@@ -2,7 +2,7 @@
 $host = "localhost";
 $username = "root"; // Default user in AMPPS
 $password = "mysql"; // Default password in AMPPS
-$database = "anibox"; // Database name
+$database = "aniboxdb"; // Database name
 
 $conn = new mysqli($host, $username, $password, $database);
 

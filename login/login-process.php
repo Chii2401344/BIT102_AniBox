@@ -9,7 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass = $_POST["password"];
 
     // Validate the input to prevent SQL injection
-    $stmt = $conn->prepare("SELECT Password FROM user WHERE Username = ?");
+    $sql = "SELECT Password FROM user WHERE Username = ?";
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $user);
     $stmt->execute();
     $result = $stmt->get_result();

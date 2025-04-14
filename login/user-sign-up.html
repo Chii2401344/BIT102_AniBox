@@ -208,6 +208,16 @@
             const cleanUrl = window.location.origin + window.location.pathname;
             window.history.replaceState({}, document.title, cleanUrl);
         }
+
+        if (urlParams.get('error') === 'email-exists') {
+            document.getElementById('email-error').style.display = 'block';
+            document.getElementById('email-error').textContent = "Email already used for another account";
+            document.getElementById('email').style.marginBottom = '0px';
+    
+            // Remove query param from URL
+            const cleanUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, cleanUrl);
+        }
         
         if (urlParams.get('error') === 'invalid-email') {
             document.getElementById('email-error').style.display = 'block';
