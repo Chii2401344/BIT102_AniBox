@@ -56,16 +56,18 @@
                                 </div>
                                 <div class="input-box">
                                     <h1>Login</h1>
-                                    <form action="../user/user-home.html" method="get">
+                                    <form action="login-process.php" method="post">
                                         <div class="login-credentials">
-                                            <input type="text" name="username" placeholder="Username" required /><br>
+                                            <input id="username" type="text" name="username" placeholder="Username">
+                                            <p class="error-msg" id="invalid-user" style="color: red; font-style: italic; margin: 0; padding-left: 5px; display: none;"></p>
                                             <p>New to AniBox? <a href="user-sign-up.html">Sign up</a> here</p>
                                         </div>
                                         <div class="login-credentials">
-                                            <input type="password" name="password" placeholder="Password" required /><br>
+                                            <input id="password" type="password" name="password" placeholder="Password">
+                                            <p class="error-msg" id="incorrect-pw" style="color: red; font-style: italic; margin: 0; padding-left: 5px; display: none;"></p>
                                             <p><a href="request-otp.html">Forgot Password</a></p>
                                         </div>
-                                        <button type="submit" id="login"><a href="../user/user-home.html"></a>Login</button>
+                                        <button type="submit" id="login">Login</button>
                                     </form>
                                 </div>
                             </div>
@@ -80,5 +82,44 @@
             <p class="text-center mb-0">&copy; 2025 AniBox. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        document.querySelector("#login").addEventListener("click", function(event) {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username == "") {
+                event.preventDefault(); // Prevent form submission
+                document.getElementById('invalid-user').style.display = 'block';
+                document.getElementById('invalid-user').textContent = "Please fill up this field";
+            } else if (username != "") {
+                document.getElementById('invalid-user').style.display = 'none';
+            }
+
+            if (password == "") {
+                event.preventDefault(); // Prevent form submission
+                document.getElementById('incorrect-pw').style.display = 'block';
+                document.getElementById('incorrect-pw').textContent = "Please fill up this field";
+            } else if (password != "") {
+                document.getElementById('incorrect-pw').style.display = 'none';
+            }
+        });
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('error') === 'incorrect') {
+            document.getElementById('incorrect-pw').style.display = 'block';
+            document.getElementById('incorrect-pw').textContent = 'Incorrect password';
+    
+            // Remove query param from URL
+            const cleanUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, cleanUrl);
+        }
+        if (urlParams.get('error') === 'invalid') {
+            document.getElementById('invalid-user').style.display = 'block';
+            document.getElementById('invalid-user').textContent = 'Invalid username';
+    
+            // Remove query param from URL
+            const cleanUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, cleanUrl);
+        }
+    </script>
 </body>
 </html>
