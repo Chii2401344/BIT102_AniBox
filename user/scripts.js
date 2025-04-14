@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
     showSaveButton("newPassword", "savePasswordBtn");
     showSaveButton("confirmPassword", "confirmPasswordBtn");
     showSaveButton("aboutText", "saveAboutBtn");
+    showSaveButton("profilePicture", "savePfpBtn");
+    showSaveButton("bannerPicture", "saveBannerBtn");
 
     // ------------------ Save Username & Email ------------------
     function saveData(inputId, buttonId, storageKey, displayId, alertMessage) {
@@ -94,4 +96,52 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    // ------------------ Display Update User Icon  ------------------
+    const profilePicture = document.getElementById('profilePicture');
+    const iconPreview = document.getElementById('iconPreview');
+
+    profilePicture.addEventListener('change', () => {
+        const file = profilePicture.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                iconPreview.src = reader.result;
+                iconPreview.style.display = 'block';
+                saveBtn.style.display = 'inline-block';
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // ------------------ Display Update User banner ------------------
+    const bannerPicture = document.getElementById('bannerPicture');
+    const bannerPreview = document.getElementById('bannerPreview');
+
+    bannerPicture.addEventListener('change', () => {
+        const file = bannerPicture.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                bannerPreview.src = reader.result;
+                bannerPreview.style.display = 'block';
+                saveBtn.style.display = 'inline-block';
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // ------------------ Account Deactivation ------------------
+    deactivateAccountBtn.addEventListener("click", function () {
+        let deactivateAlert = confirm("Are you sure you want to deactivate your account? This action cannot be undone.");
+        if (deactivateAlert) {
+            alert("Account deactivated. You will be redirected to the homepage.");
+            window.location.href = "../index.html"; // Redirect to homepage
+        }
+    });
+
 });

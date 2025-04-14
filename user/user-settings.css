@@ -29,17 +29,27 @@
 /* ==========================================================================
    User Setting Buttons
    ========================================================================== */
-#saveUserBtn, #saveEmailBtn, #savePasswordBtn, #confirmPasswordBtn, #saveAboutBtn {
+#saveUserBtn, #saveEmailBtn, #savePasswordBtn, #confirmPasswordBtn, #saveAboutBtn, #savePfpBtn, #saveBannerBtn {
     display: none;
+    margin-top: 2%;
+}
+
+#deactivateAccountBtn {
     margin-top: 2%;
 }
 
 /* ==========================================================================
    User Settings Form
    ========================================================================== */
-.username, .email, .currentPassword, .newPassword, .confirmPassword, .aboutText {
+.username, .email, .currentPassword, .newPassword, .confirmPassword, .aboutText, .profilePicture, .bannerPicture, .accountDeactivation {
     color: var(--text-color);
     margin-top: 20px;
+}
+
+
+
+.accountDeactivation {
+    color: red;
 }
 
 .editPassword {
@@ -64,6 +74,8 @@
 .currentPassword {
     display: block;
 }
+
+
 
 /* ==========================================================================
    Media Queries

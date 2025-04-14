@@ -132,6 +132,24 @@
                 <div><button class="btn btn-primary" id="saveAboutBtn" style="display: none;" type="button">Save
                         Changes</button></div>
 
+                <label for="profilePicture" class="profilePicture">Profile Picture</label>
+                <input type="file" class="form-control" id="profilePicture" accept="image/*">
+                <img id="iconPreview" src="" alt="Image Preview" style="max-width: 10rem; display: none; margin-top: 20px; border-radius: 7px; border: 2px solid var(--earthy-brown); overflow: hidden;">
+                <div><button class="btn btn-primary" id="savePfpBtn" style="display: none;" type="button">Save
+                        Changes</button></div>
+
+                <label for="bannerPicture" class="bannerPicture">Banner Picture</label>
+                <input type="file" class="form-control" id="bannerPicture" accept="image/*">
+                <img id="bannerPreview" src="" alt="Image Preview" style="max-width: 35rem; display: none; margin-top: 20px; border-radius: 7px; border: 2px solid var(--earthy-brown); overflow: hidden;">
+                <div><button class="btn btn-primary" id="saveBannerBtn" style="display: none;" type="button">Save
+                        Changes</button></div>
+
+                <strong><label for="accountDeactivation" class="accountDeactivation">Account Deactivation</label></strong><br>
+                <span id="accountDeactivation" class="deactivationDisplay">Warning! This will permanently delete all your account data.</span><br>
+                <button type="button" class="deactivateAccount" id="deactivateAccountBtn">Deactivate Account</button>
+                
+
+
             </div>
         </form>
     </div>

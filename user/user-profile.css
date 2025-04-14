@@ -24,7 +24,7 @@
     align-items: center;
     border: 2px solid whitesmoke;
     border-radius: 50%;
-    height: 10rem;
+    height: 10rem; 
     width: 10rem;
     overflow: hidden;
 }
