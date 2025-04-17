@@ -10,10 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Check if the OTP is valid and matches the one stored in the session
     if ($userOtp == $_SESSION['otp']) {
+        // OTP is valid, proceed to reset the password
         echo "<script>alert('OTP verified successfully!');</script>";
         echo "<script>window.location.href='reset-password.html';</script>";
         exit();
     } else if ($userOtp != $_SESSION['otp']) {
+        // OTP is invalid, show an error message
         echo "<script>alert('Invalid OTP. Please try again.');</script>";
         echo "<script>window.location.href='enter-otp.html';</script>";
         exit();

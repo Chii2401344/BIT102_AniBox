@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirmPassword = $_POST["confirm-password"];
     $email = $_SESSION["email"];
 
-    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT); // Hash the new password
+    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);    // Hash the new password
 
     // Update the password in the database
     $sql = "UPDATE user SET Password = ? WHERE Email = ?";
@@ -20,11 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
     // Check if the password was updated successfully
     if ($stmt->execute()) {
+        // Password reset successful, redirect to login page
         echo "<script>alert('Password reset successful!');</script>";
         echo "<script>window.location.href = 'user-login.html';</script>";
         exit();
     } else {
-        echo "<script>alert('Error: " . $stmt->error . "');</script>";
+        // Error updating password
+        echo "<script>alert('Error: failed to reset password.');</script>";
     }
 
     // Close the statement and connection

@@ -136,11 +136,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ------------------ Account Deactivation ------------------
-    deactivateAccountBtn.addEventListener("click", function () {
+    document.getElementById('deactivateAccountBtn').addEventListener("click", function() {
         let deactivateAlert = confirm("Are you sure you want to deactivate your account? This action cannot be undone.");
         if (deactivateAlert) {
-            alert("Account deactivated. You will be redirected to the homepage.");
-            window.location.href = "../index.html"; // Redirect to homepage
+            window.location.href = "delete-acc.php";
         }
     });
 
