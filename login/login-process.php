@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass = $_POST["password"];
 
     // Validate the input to prevent SQL injection
-    $sql = "SELECT Password FROM user WHERE Username = ?";
+    $sql = "SELECT User_ID, Password FROM user WHERE Username = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $user);
     $stmt->execute();
@@ -21,7 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verify the password if the user exists
         if (password_verify($pass, $row['Password'])) {
             // Login successful
+            $_SESSION['user_id'] = $row['User_ID'];
             $_SESSION['username'] = $user;
+            
             header("Location: ../user/user-home.html");
             exit();
         } else {
