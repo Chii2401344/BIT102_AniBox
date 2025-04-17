@@ -1,10 +1,11 @@
 <?php
-require "connect.php"; // Include the database connection file
-session_start(); // Start the session to store user information
+// Include the database connection file and start the session
+require "connect.php";
+session_start();
 
 // Start the login process if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get username and password from form
+    // Get the username and password from the form
     $user = $_POST["username"];
     $pass = $_POST["password"];
 
@@ -20,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verify the password if the user exists
         if (password_verify($pass, $row['Password'])) {
             // Login successful
-            $_SESSION['username'] = $user;  // Store the username in session
+            $_SESSION['username'] = $user;
             header("Location: ../user/user-home.html");
             exit();
         } else {

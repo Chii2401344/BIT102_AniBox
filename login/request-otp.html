@@ -59,8 +59,9 @@
                                     <p>Please enter your email to receive an OTP.<br><strong>NOTE: Email must match with the one used for your account.</strong></p>
                                     <form action="request-otp.php" method="post">
                                         <div class="input-group email-for-otp">
-                                            <input type="email" name="email" placeholder="Email" required /><br>
-                                            <button type="submit" id="send-otp"><a href="enter-otp.html"></a>Continue</button>
+                                            <input id="email" type="text" name="email" placeholder="Email">
+                                            <p class="error-msg" style="color: red; font-style: italic; padding-left: 5px; font-size: 0.8rem; display: none;"></p>
+                                            <button type="submit" id="send-otp">Request OTP</button>
                                         </div>
                                         <p>Remember your password? <a href="user-login.html"> Back to Login</a></p>
                                     </form>
@@ -78,7 +79,29 @@
         </div>
     </footer>
     <script>
+        document.getElementById('send-otp').addEventListener('click', function() {
+            let email = document.getElementById('email').value;
 
+            if (email == "") {
+                event.preventDefault(); // Prevent form submission
+                document.querySelector('.error-msg').innerText = "Please enter your email.";
+                document.querySelector('.error-msg').style.display = "block";
+                document.getElementById('email').style.marginBottom = "0px";
+            } else if (email != ""){
+                document.querySelector('.error-msg').style.display = "none";
+                document.getElementById('email').style.marginBottom = "20px";
+            }
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('error') === 'email-not-found') {
+            document.querySelector('.error-msg').innerText = "Email not found";
+            document.querySelector('.error-msg').style.display = "block";
+            document.getElementById('email').style.marginBottom = "0px";
+
+            const cleanUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, cleanUrl);
+        } 
     </script>
 </body>
 </html>

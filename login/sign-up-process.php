@@ -1,9 +1,11 @@
 <?php
+// Include the database connection file and start the session
 require "connect.php";
 session_start();
 
 // Start the sign-up process if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the username, email, password, and confirm password from the form
     $username = $_POST["username"];
     $email = $_POST["email"];
     $password = $_POST["password"];
@@ -16,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Check if the user exists in the database
+    // Check if the username already exists in the database
     if ($row = $result->fetch_assoc()) {
         header("Location: user-sign-up.html?error=exists");
         exit();
@@ -29,28 +31,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $result = $stmt->get_result();
 
+    // Check if the email already exists in the database
     if ($row = $result->fetch_assoc()) {
         header("Location: user-sign-up.html?error=email-exists");
         exit();
     }
 
-    // Check if the email format is valid
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    // Check if the email format is correct
+    $domain = substr(strrchr($email, "@"), 1);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !checkdnsrr($domain, "MX")) {
         header("Location: user-sign-up.html?error=invalid-email");
         exit();
     }
 
-    // Hash the password before storing
+    // Hash the password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Set default images for profile pic and banner pic
-    $profileImg = "../assets/img/default.jpg";
-    $bannerImg = "../assets/img/default_banner.jpg";
-
-    // Insert the new user into the database
-    $sql = "INSERT INTO user (Username, Email, Password, Profile_Img, Banner_Img) VALUES (?, ?, ?, ?, ?)";
+    // Insert the new user details into database
+    $sql = "INSERT INTO user (Username, Email, Password) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $username, $email, $hashedPassword, $profileImg, $bannerImg); 
+    $stmt->bind_param("sss", $username, $email, $hashedPassword); 
 
     // Check if the sql query was successful
     if ($stmt->execute()) {

@@ -57,12 +57,12 @@
                                 <div class="input-box">
                                     <h1>Forgot Password</h1>
                                     <p>Please enter the OTP sent to your email.</p>
-                                    <form action="reset-password.html" method="get">
+                                    <form action="enter-otp.php" method="post" id="otp-form">
                                         <div class="input-group">
-                                            <input type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" minlength="6" name="otp" placeholder="Enter OTP" required /><br>
+                                            <input type="text" name="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" minlength="6" placeholder="Enter OTP"><br>
                                         </div>
                                         <div class="input-group">
-                                            <button type="submit" id="enter-otp"><a href="reset-password.html"></a>Continue</button>
+                                            <button type="submit" id="enter-otp">Continue</button>
                                         </div>
                                         <p>Not receiving an OTP? <a href="request-otp.html">Go back</a> to request a new one<br>
                                         Remember your password? <a href="user-login.html"> Back to Login</a></p>
