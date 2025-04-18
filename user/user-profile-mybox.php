@@ -1,3 +1,50 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // If not logged in, redirect to login page
+    header("Location: ../user-login.html");
+    exit();
+}
+
+// Get the User_ID from session
+$user_id = $_SESSION['user_id'];
+
+require '../login/connect.php'; // Include the database connection file
+
+// Fetch user data
+$sql = "SELECT * FROM user WHERE user_id = '$user_id'";
+$result = $conn->query($sql);
+$user = $result->fetch_assoc();
+
+// Fetch watchlist data with anime details
+$watchlist_sql = "SELECT w.*, a.Title, a.Cover_Img 
+                FROM watchlist w 
+                JOIN anime a ON w.Ani_ID = a.Ani_ID 
+                WHERE w.User_ID = '$user_id'";
+$watchlist_result = $conn->query($watchlist_sql);
+
+// Organize anime by status
+$watching = array();
+$completed = array();
+$planning = array();
+
+while ($row = $watchlist_result->fetch_assoc()) {
+    switch ($row['Status']) {
+        case 'Watching':
+            $watching[] = $row;
+            break;
+        case 'Completed':
+            $completed[] = $row;
+            break;
+        case 'Planning':
+            $planning[] = $row;
+            break;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,81 +65,11 @@
 
 <body>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="user-home.html">AniBox</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="user-home.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="user-home.html#browse">Browse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="user-profile-mybox.html">My Box</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="user-profile-about.html">Profile</a>
-                    </li>
-                </ul>
-                <hr class="d-lg-none my-2 text-dark-50">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="user-settings.html" class="d-none d-lg-block me-3">
-                            <i class="fa-solid fa-gear"></i>
-                        </a>
-                        <a class="nav-link d-block d-lg-none" href="user-settings.html">Settings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" id="logoutDesktop" class="d-none d-lg-block me-3">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </a>
-                        <a href="#" id="logoutMobile" class="nav-link d-block d-lg-none">Logout</a>
-                    </li>
-                </ul>
+    <!-- Include User's Navigation Bar  -->
+    <?php include "navbar.php"; ?>
 
-                <!-- Profile Picture -->
-                <a href="user-profile-about.html" class="card-container d-none d-lg-block">
-                    <img src="../assets/img/pfp3.jpg" alt="profile" class="user-icon">
-                </a>
-
-            </div>
-        </div>
-    </nav>
-
-    <!-- Profile Section -->
-    <div class="profile">
-        <div class="pfp">
-            <img src="../assets/img/pfp3.jpg" alt="profile">
-        </div>
-        <div class="profile_info">
-            <h2 class="username" id="profileUsername">User1_Fein</h2>
-            <h4 class="email" id="profileEmail">User_fein1@yohohoho.com</h4>
-        </div>
-    </div>
-
-    <!-- Lower Profile Navigation Bar -->
-    <div class="lower_profile">
-        <div class="lower_profile_nav">
-            <a class="lower_profile_nav_link" href="user-profile-about.html">
-                <h5>About</h5>
-            </a>
-            <a class="lower_profile_nav_link" href="user-profile-mybox.html">
-                <h5>My Box</h5>
-            </a>
-            <a class="lower_profile_nav_link" href="user-profile-review.html">
-                <h5>Reviews</h5>
-            </a>
-        </div>
-    </div>
-
-
+    <!-- Include User Profile Section and Lower Navigation Bar -->
+     <?php include "user-profile-navbar.php"; ?>
 
     <main>
         <!-- My Box Section -->
@@ -186,31 +163,39 @@
                                         <p class="anime-card-th">Title</p>
                                     </th>
                                     <th style="width: 20%;">
-                                        <p class="anime-card-th">Score</p>
+                                        <p class="anime-card-th">Edit</p>
                                     </th>
                                     <th style="width: 20%;">
-                                        <p class="anime-card-th">Edit</p>
+                                        <p class="anime-card-th">Delete</p>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach ($watching as $anime): ?>
                                 <tr class="anime-card">
                                     <td>
-                                        <img src="../assets/img/cover-one-piece.jpg" alt="One Piece" width="5%">
+                                        <img src="../<?php echo $anime['Cover_Img']; ?>" alt="<?php echo $anime['Title']; ?>" width="5%">
                                     </td>
                                     <td>
-                                        <a class="anime-card-title" href="../animes/one-piece.html">One Piece</a>
+                                        <a class="anime-card-title" href="../animes/<?php echo strtolower(str_replace(' ', '-', $anime['Title'])); ?>.html">
+                                            <?php echo $anime['Title']; ?>
+                                        </a>
                                     </td>
                                     <td>
-                                        <p class="anime-card-score">10</p>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#edit-watchlist">
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-watchlist" 
+                                                data-anime-id="<?php echo $anime['Ani_ID']; ?>"
+                                                data-status="<?php echo $anime['Status']; ?>">
                                             Edit
                                         </button>
                                     </td>
+                                    <td>
+                                        <button class="btn btn-danger" 
+                                                data-anime-id="<?php echo $anime['Ani_ID']; ?>">
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -225,33 +210,39 @@
                                         <p class="anime-card-th">Title</p>
                                     </th>
                                     <th style="width: 20%;">
-                                        <p class="anime-card-th">Score</p>
+                                        <p class="anime-card-th">Edit</p>
                                     </th>
                                     <th style="width: 20%;">
-                                        <p class="anime-card-th">Edit</p>
+                                        <p class="anime-card-th">Delete</p>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="anime-card">
-                                <tr>
+                            <tbody>
+                                <?php foreach ($completed as $anime): ?>
+                                <tr class="anime-card">
                                     <td>
-                                        <img src="../assets/img/cover-bocchi-the-rock.jpg" alt="Bocchi the Rock"
-                                            width="5%">
+                                        <img src="../<?php echo $anime['Cover_Img']; ?>" alt="<?php echo $anime['Title']; ?>" width="5%">
                                     </td>
                                     <td>
-                                        <a class="anime-card-title" href="../animes/bocchi-the-rock.html">Bocchi the
-                                            Rock</a>
+                                        <a class="anime-card-title" href="../animes/<?php echo strtolower(str_replace(' ', '-', $anime['Title'])); ?>.html">
+                                            <?php echo $anime['Title']; ?>
+                                        </a>
                                     </td>
                                     <td>
-                                        <p class="anime-card-score">10</p>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#edit-watchlist">
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-watchlist"
+                                                data-anime-id="<?php echo $anime['Ani_ID']; ?>"
+                                                data-status="<?php echo $anime['Status']; ?>">
                                             Edit
                                         </button>
                                     </td>
+                                    <td>
+                                        <button class="btn btn-danger" 
+                                                data-anime-id="<?php echo $anime['Ani_ID']; ?>">
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -267,31 +258,39 @@
                                         <p class="anime-card-th">Title</p>
                                     </th>
                                     <th style="width: 20%;">
-                                        <p class="anime-card-th">Score</p>
+                                        <p class="anime-card-th">Edit</p>
                                     </th>
                                     <th style="width: 20%;">
-                                        <p class="anime-card-th">Edit</p>
+                                        <p class="anime-card-th">Delete</p>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach ($planning as $anime): ?>
                                 <tr class="anime-card">
                                     <td>
-                                        <img src="../assets/img/cover-kimi-no-na-wa.jpg" alt="Kimi no Na wa" width="5%">
+                                        <img src="../<?php echo $anime['Cover_Img']; ?>" alt="<?php echo $anime['Title']; ?>" width="5%">
                                     </td>
                                     <td>
-                                        <a class="anime-card-title" href="../animes/kimi-no-na-wa.html">Your Name</a>
+                                        <a class="anime-card-title" href="../animes/<?php echo strtolower(str_replace(' ', '-', $anime['Title'])); ?>.html">
+                                            <?php echo $anime['Title']; ?>
+                                        </a>
                                     </td>
                                     <td>
-                                        <p class="anime-card-score">10</p>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#edit-watchlist">
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-watchlist"
+                                                data-anime-id="<?php echo $anime['Ani_ID']; ?>"
+                                                data-status="<?php echo $anime['Status']; ?>">
                                             Edit
                                         </button>
                                     </td>
+                                    <td>
+                                        <button class="btn btn-danger" 
+                                                data-anime-id="<?php echo $anime['Ani_ID']; ?>">
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -315,21 +314,6 @@
                                     <option>Watching</option>
                                     <option>Completed</option>
                                     <option>Planning</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="score" class="form-label">Score</label>
-                                <select class="form-select mt-2" id="score">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
                                 </select>
                             </div>
                         </form>
@@ -360,6 +344,87 @@
             <p class="text-center mb-0">&copy; 2025 AniBox. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Handle the edit watchlist modal
+        const editModal = document.getElementById('edit-watchlist');
+        let currentAnimeId = null;
+
+        editModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            currentAnimeId = button.getAttribute('data-anime-id');
+            const currentStatus = button.getAttribute('data-status');
+            
+            // Set the current status in the dropdown
+            const statusSelect = document.getElementById('status');
+            statusSelect.value = currentStatus;
+        });
+
+        // Handle the form submission
+        document.querySelector('#edit-watchlist .btn-primary').addEventListener('click', function() {
+            const status = document.getElementById('status').value;
+            
+            // Send the update request
+            fetch('update-watchlist.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    anime_id: currentAnimeId,
+                    status: status
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Reload the page to show updated watchlist
+                    window.location.reload();
+                } else {
+                    alert('Failed to update watchlist: ' + (data.error || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to update watchlist. Please try again.');
+            });
+        });
+
+        // Handle delete buttons
+        document.querySelectorAll('.btn-danger').forEach(button => {
+            button.addEventListener('click', function() {
+                const animeId = this.getAttribute('data-anime-id');
+                const animeTitle = this.closest('tr').querySelector('.anime-card-title').textContent;
+                
+                // Show confirmation dialog
+                if (confirm(`Are you sure you want to remove this from your watchlist?`)) {
+                    // Send delete request
+                    fetch('delete-watchlist.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            anime_id: animeId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Remove the row from the table
+                            this.closest('tr').remove();
+                        } else {
+                            alert('Failed to delete watchlist entry: ' + (data.error || 'Unknown error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Failed to delete watchlist entry. Please try again.');
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
 
