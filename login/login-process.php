@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $row['User_ID'];
             $_SESSION['username'] = $user;
             
-            header("Location: ../user/user-home.html");
+            header("Location: ../user/user-home.php");
             exit();
         } else {
             // Incorrect password

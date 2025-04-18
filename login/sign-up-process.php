@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Sign up successful, store the username in the session and redirect to user home page
         $_SESSION['username'] = $username;
         echo "<script>alert('Sign-up successful!');</script>";
-        echo "<script>window.location.href = '../user/user-home.html';</script>";
+        echo "<script>window.location.href = '../user/user-home.php';</script>";
         exit();
     } else {
         // Error inserting data into the database
