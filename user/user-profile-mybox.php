@@ -60,7 +60,6 @@ while ($row = $watchlist_result->fetch_assoc()) {
     <link rel="stylesheet" href="user-profile-mybox.css">
     <link rel="stylesheet" href="user-navbar.css">
     <link rel="stylesheet" href="user-profile.css">
-    <script src="scripts1.js"></script>
 </head>
 
 <body>

@@ -33,7 +33,6 @@ $user = $result->fetch_assoc(); // Fetch the user data
     <link rel="stylesheet" href="user-home.css">
     <link rel="stylesheet" href="user-navbar.css">
     <link rel="stylesheet" href="browse-anime.css">
-    <script src="scripts1.js"></script>
 </head>
 
 <body>
