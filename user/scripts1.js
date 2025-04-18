@@ -6,9 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (logoutButton) {
             logoutButton.addEventListener("click", function (event) {
                 event.preventDefault();
+                console.log("Logout button clicked.");
                 let logoutAlert = confirm("Are you sure you want to logout?");
                 if (logoutAlert) {
-                    window.location.href = "../index.html";
+                    window.location.href = "user-logout.php";
                 }
             });
         }
