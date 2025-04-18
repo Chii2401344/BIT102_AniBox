@@ -1,3 +1,9 @@
+<?php
+session_start();
+$ani_id = "3";
+require 'connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,9 +18,10 @@
     <link rel="stylesheet" href="../assets/theme.css">
     <link rel="stylesheet" href="../user/user-navbar.css">
     <link rel="stylesheet" href="anime.css">
+    <link rel="stylesheet" href="new.css">
 </head>
 
-<body class="bocchi-the-rock">
+<body class="kimi-no-na-wa">
 
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -68,13 +75,13 @@
         <!-- Container for Main Anime Display -->
         <div class=anime-container>
             <div class="anime-cover">
-                <img src="../assets/img/cover-bocchi-the-rock.jpg" alt="Bocchi the Rock">
+                <img src="../assets/img/cover-kimi-no-na-wa.jpg" alt="Your Name">
             </div>
             <div class="anime-details">
-                <p class="title"><strong>Bocchi the Rock</strong></p>
-                    <span class="bocchi-genre">Comedy</span>
-                    <p class="detail1"><strong>Episodes:</strong> 12</p>
-                    <p class="detail2"><strong>Status:</strong> Finished</p>
+                <p class="title"><strong>Your Name</strong></p>
+                    <span class="kimi-genre">Romance</span>
+                    <p class="detail1"><strong>Episodes:</strong> 1</p>
+                    <p class="detail2"><strong>Status:</strong> Completed</p>
             </div>
         </div>
         <!-- Add to Box Button -->
@@ -96,25 +103,25 @@
             <div class="score">
                 <p>Rating
                 <p>
-                <h3>87%</h3>
+                <h3>85%</h3>
             </div>
 
             <div class="popularity">
                 <p>Popularity
                 <p>
-                <h3>184669</h3>
+                <h3>574037</h3>
             </div>
 
             <div class="date">
                 <p>Release Date
                 <p>
-                <h3>Oct 8, 2022</h3>
+                <h3>Aug 26, 2016</h3>
             </div>
 
             <div class="studio">
                 <p>Studio
                 <p>
-                <h3>CloverWorks</h3>
+                <h3>CoMix Wave Films</h3>
             </div>
 
         </div>
@@ -122,8 +129,8 @@
         <!-- Anime Synopsis Section -->
         <div class="anime-synopsis">
             <h2><strong>✦ Synopsis ୭ ˚. ᵎᵎ</strong></h2>
-            <p>Hitori "Bocchi" Gotoh, a socially anxious girl who loves guitar, joins a band to make friends and
-                overcome her shyness, leading to hilarious and heartfelt moments.
+            <p>Two strangers, Taki and Mitsuha, mysteriously swap bodies across time, forming a deep connection and
+                racing to change fate before disaster strikes.
             </p>
         </div>
 
@@ -139,13 +146,13 @@
 
                     <!-- Container for Individual Recommendation Section -->
                     <div class="individual-recommendation">
-                        <img src="../assets/img/cover-k-on.jpg" alt="K-On!">
+                        <img src="../assets/img/cover-a-silent-voice.jpg" alt="A Silent Voice">
                         <!-- Container for Recommendation Details and Add to Box Button -->
                         <div class="recommendation-details">
-                            <h4 class="recommendation-title"><strong>K-On!</strong></h4>
-                            <p class="recommendation-synopsis">Yui Hirasawa
-                                enrolls in high school, but she is without a band and is unable to read music.
-                                This will soon change when she discovers the Light Music Club.
+                            <h4 class="recommendation-title"><strong>A Silent Voice</strong></h4>
+                            <p class="recommendation-synopsis">
+                                After bullying Shoko, a girl with hearing impairment, Shoya is consumed with guilt.
+                                Soon, several things go downhill and he sets out to make amends.
                             </p>
                             <button class="btn btn-light"><strong>+ Add to Box</strong></button>
                         </div>
@@ -157,13 +164,13 @@
 
                     <!-- Container for Individual Recommendation Section -->
                     <div class="individual-recommendation">
-                        <img src="../assets/img/cover-girls-band-cry.jpg" alt="Girls Band Cry">
+                        <img src="../assets/img/cover-weathering-with-you.jpg" alt="Weathering with You">
                         <!-- Container for Recommendation Details and Add to Box Button -->
                         <div class="recommendation-details">
-                            <h4 class="recommendation-title"><strong>Girls Band Cry</strong></h4>
+                            <h4 class="recommendation-title"><strong>Weathering with You</strong></h4>
                             <p class="recommendation-synopsis">
-                                A group of young women from different backgrounds form a
-                                band, using music as a way to express their struggles, dreams, and emotions.
+                                A high school student facing financial struggles meets a young girl who has the ability
+                                to control the weather.
                             </p>
                             <button class="btn btn-light"><strong>+ Add to Box</strong></button>
                         </div>
@@ -175,13 +182,13 @@
 
                     <!-- Container for Individual Recommendation Section -->
                     <div class="individual-recommendation">
-                        <img src="../assets/img/cover-laid-back-camp.jpg" alt="Laid Back Camp">
+                        <img src="../assets/img/cover-suzume.jpg" alt="Suzume">
                         <!-- Container for Recommendation Details and Add to Box Button -->
                         <div class="recommendation-details">
-                            <h4 class="recommendation-title"><strong>Laid Back Camp</strong></h4>
+                            <h4 class="recommendation-title"><strong>Suzume</strong></h4>
                             <p class="recommendation-synopsis">
-                                A group of friends go on relaxing camping trips, enjoying
-                                nature, good food, and each other's company.
+                                As the skies turn red and the planet trembles, a determined teenager named Suzume sets
+                                out on a mission to save her country.
                             </p>
                             <button class="btn btn-light"><strong>+ Add to Box</strong></button>
                         </div>
@@ -200,38 +207,41 @@
                 <div class="review-container">
 
                     <!-- Container for Review Form -->
-                    <div class="review-form">
+                    <form action="leave-review.php" method="POST">
+                        <input type="hidden" name="Ani_ID" value="<?php echo $ani_id; ?>">
+                        <input type="hidden" name="Rev_ID" value="<?= $review['Rev_ID'] ?>">
+                        <input type="hidden" name="redirect_to" value="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+                        <div class="review-form">
 
-                        <!-- Rating Form (dropdown input) -->
-                        <div class="rating-form">
-                            <label for="rating">Rating:</label><br>
-                            <select class="form-select" id="rating" name="rating">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </div>
+                            <!-- Rating Form (dropdown input) -->
+                            <div class="rating-form">
+                                <label for="rating">Rating:</label><br>
+                                <select class="form-select" id="rating" name="Rating" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
 
-                        <!-- Review Comment Form (text input) -->
-                        <div class="review">
-                            <label>Review:</label><br>
-                            <input type="text" placeholder="Write a review...">
-                        </div>
+                            <!-- Review Comment Form (text input) -->
+                            <div class="review">
+                                <label>Review:</label><br>
+                                <input type="text" id="content" name="Content" placeholder="Write a review..." required>
+                            </div>
 
-                        <!-- Submit Review Button -->
-                        <div class="submisson-button">
+                            <!-- Submit Review Button -->
+                            <div class="submisson-button">
+                                <br>
+                                <button type="submit" class="submit-button">Submit</button>
+                            </div>
                             <br>
-                            <button class="submit-button">Submit</button>
-                        </div>
-
-                        <br>
                     </div>
 
                     <!-- Divider between Review Form and Reviews -->
@@ -240,37 +250,51 @@
                     <!-- Container for All Reviews -->
                     <div class="review-comments">
 
-                        <!-- Container for Individual Reviews -->
-                        <div class="review-card">
-                            <img src="../assets/img/icon-espurr.jpg" alt="profile" class="review-user-icon" width="50px"
-                                height="50px">
-                            <h4 class="review-username" id="profileUsername1">ikinespurr</h4>
-                            <h5>10/10</h5>
-                            <p>So funny I peed myself</p>
-                            <p class="review-date">Feb 2, 2025</p>
-                        </div>
+                    <?php
+                        $ani_id = "3";
+                        $sql = "SELECT r.*, u.Username, u.Profile_Img 
+                                FROM review r
+                                JOIN user u ON r.User_ID = u.User_ID
+                                WHERE r.Ani_ID = '$ani_id'
+                                ORDER BY r.Rev_Date DESC";
+                        $result = $conn->query($sql);
 
-                        <!-- Container for Individual Reviews -->
-                        <div class="review-card">
-                            <img src="../assets/img/pfp3.jpg" alt="profile" class="review-user-icon" width="50px"
-                                height="50px">
-                            <h4 class="review-username" id="profileUsername2">User1_Fein</h4>
-                            <h5>6/10</h5>
-                            <p>I thought it was going to be about a rock</p>
-                            <p class="review-date">Nov 14, 2024</p>
-                        </div>
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                
+                        if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['User_ID']) {
+                            echo '<div class="review-card user-review" style="position: relative;">';
+                            echo '<div class="dropdown" style="position: absolute; top: 1rem; right: 1.5rem;">';
+                            echo '<button class="btn btn-info" data-bs-toggle="dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1rem;">...</button>';
+                            echo '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+                            echo '<a class="dropdown-item" href="update-review.php?Rev_ID=' . $row['Rev_ID'] . '&redirect_to=' . basename($_SERVER['PHP_SELF']) . '">Edit Review</a>';
+                            echo '<a class="dropdown-item" href="delete-review.php?Review_ID=' . $row['Rev_ID'] . '&redirect_to=' . basename($_SERVER['PHP_SELF']) . '" onclick="return confirm(\'Are you sure you want to delete this review?\')">Delete Review</a>';
 
-                        <!-- Container for Individual Reviews -->
-                        <div class="review-card">
-                            <img src="../assets/img/icon-puppy.jpg" alt="profile" class="review-user-icon" width="50px"
-                                height="50px">
-                            <h4 class="review-username" id="profileUsername3">yummyluvr</h4>
-                            <h5>8/10</h5>
-                            <p>I don't watch anime but my friend told me to give this anime a good review</p>
-                            <p class="review-date">Aug 27, 2024</p>
-                        </div>
+                            echo '</ul>';
+                            echo '</div>';
+                            echo '<img src="' . htmlspecialchars($row["Profile_Img"]) . '" alt="profile" class="review-user-icon" width="50px" height="50px">';
+                            echo '<h4 class="review-username">' . htmlspecialchars($row["Username"]) . '</h4>';
+                            echo '<h5>' . $row["Rating"] . '/10</h5>';
+                            echo '<p>' . htmlspecialchars($row["Content"]) . '</p>';
+                            echo '<p class="review-date">' . date("M j, Y", strtotime($row["Rev_Date"])) . '</p>';
+                            echo '</div>';
+                            continue; // Skip displaying this review again in the loop
+                        }
+                                echo '<div class="review-card">';
+                                echo '<img src="' . htmlspecialchars($row["Profile_Img"]) . '" alt="profile" class="review-user-icon" width="50px" height="50px">';
+                                echo '<h4 class="review-username">' . htmlspecialchars($row["Username"]) . '</h4>';
+                                echo '<h5>' . $row["Rating"] . '/10</h5>';
+                                echo '<p>' . htmlspecialchars($row["Content"]) . '</p>';
+                                echo '<p class="review-date">' . date("M j, Y", strtotime($row["Rev_Date"])) . '</p>';
+                                echo '</div>';   
+                            }
+                        } else {
+                            echo '<p>No reviews yet! (◞‸◟；) Be the first to leave one?</p>';
+                        }
+                        $conn->close();
+                    ?>
 
-                        <br>
+                    <br>
                     </div>
 
                 </div>

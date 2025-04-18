@@ -1,0 +1,116 @@
+.review-card.user-review {
+    position: relative;
+}
+
+.review-dropdown {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+}
+
+.btn.btn-info {
+    font-size: 1rem;
+    border-radius: 5rem;
+    border: none;
+    background: linear-gradient(135deg, var(--peach-pink), var(--light-blue));
+    border-color: var(--peach-pink-hover);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.btn.btn-info:hover {
+    background: linear-gradient(135deg, var(--peach-pink-hover), var(--light-blue-hover));
+    border-color: var(--peach-pink-hover);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.review-username {font-size: 30rem;}
+
+.genre {margin: 1.25rem;
+    margin-left:1rem;
+    font-size: 1.25rem;
+    border-radius: 30rem;
+    padding: 0.313rem;
+    width:fit-content;}
+
+.update-review {
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, var(--peach-pink-hover), var(--light-blue-hover));
+    padding: 10%;
+    border-radius: 5%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.text-center {
+    font-size:3rem;
+    color: white;
+    margin: 0;
+    font-weight: bold;
+}
+
+.btn.btn-link {
+    color: white;
+    padding-top: 0;
+}
+
+.btn.btn-link:hover {
+    color: var(--light-blue);
+}
+
+.btn.btn-success {
+    font-size: 1.2rem;
+    background-color: var(--soft-green);
+    border: none;
+    width: 80%;
+    margin-top: 10%;
+    font-weight: bold;
+}
+
+.btn.btn-success:hover {
+    background-color: var(--soft-green-hover);
+    
+}
+
+label {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--light-blue);
+    width: 80%;
+
+}
+input[type="number"] {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--light-blue);
+    width: 80%;
+
+}
+
+.dropdown-menu {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+  
+  .dropdown-item:hover {
+    background-color: var(--light-blue);
+    color: #000;
+}
