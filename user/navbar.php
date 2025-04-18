@@ -2,7 +2,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="user-home.html">AniBox</a>
+            <a class="navbar-brand" href="user-home.php">AniBox</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@
                         <a class="nav-link" href="user-home.php#browse">Browse</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user-profile-mybox.html">My Box</a>
+                        <a class="nav-link" href="user-profile-mybox.php">My Box</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="user-profile-about.html">Profile</a>
