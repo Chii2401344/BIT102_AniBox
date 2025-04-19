@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if the sql query was successful
     if ($stmt->execute()) {
-        // Sign up successful, store the username in the session and redirect to user home page
+        // Sign up successful, store the user details in the session and redirect to user home page
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
         $_SESSION['Password'] = $hashedPassword;

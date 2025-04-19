@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($row = $result->fetch_assoc()) {
         // Verify the password if the user exists
         if (password_verify($pass, $row['Password'])) {
-            // Login successful
+            // Login successful, store the user details in the session
             $_SESSION['user_id'] = $row['User_ID'];
             $_SESSION['username'] = $user;
             $_SESSION['email'] = $row['Email'];
