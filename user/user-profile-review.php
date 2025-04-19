@@ -45,11 +45,6 @@ $user = $result->fetch_assoc();
     <?php include "user-profile-navbar.php"; ?>
 
     <div class="container">
-        <div class="row">
-            <!-- Section Above (Button) -->
-            <div class="add-review-button">
-                <button class="btn btn-primary Add_Review">Add Review</button>
-            </div>
 
             <!-- Section Below (Reviews) -->
             <div class="review-container">
@@ -58,88 +53,62 @@ $user = $result->fetch_assoc();
                     <h2 class="review"><strong>✦ ⋆.˚ Recent Reviews ˚.⋆ ✦</strong></h2>
                 </div>
 
-                <div class="review-card">
-
-                    <div class="review-anime-cover">
-                        <img src="../assets/img/cover-kimi-no-na-wa.jpg" alt="Your Name">
-                    </div>
-
-                    <div class="review-card-header">
-
-                        <div class="review-card-profile">
-                            <img src="../assets/img/pfp3.jpg" alt="profile" class="user-icon" width="50px" height="50px">
-                            <h4 class="review-card-username" id="profileUsername">User1_Fein</h4>
-                        </div>
-
-                        <div class="review-card-body">
-                            <p class="review-card-score">8/10</p>
-                            <p class="review-card-text"><a href="../animes/kimi-no-na-wa.html#profileUsername1">OMG so sad..</a></p>
-                        </div>
-
-                        <div class="review-card-header-text">
-                            <p class="review-card-date">Mar 10, 2025</p>
-                        </div>
-
-
-                    </div>
-                    
-                </div>
                 
-                <div class="review-card">
+                <?php
+                // Get all reviews by this user
+                $sql = "SELECT r.*, a.Title, a.Cover_Img, u.Username, u.Profile_Img 
+                        FROM review r 
+                        JOIN anime a ON r.Ani_ID = a.Ani_ID 
+                        JOIN user u ON r.User_ID = u.User_ID
+                        WHERE r.User_ID = ? 
+                        ORDER BY r.Rev_Date DESC";
 
-                    <div class="review-anime-cover">
-                        <img src="../assets/img/cover-bocchi-the-rock.jpg" alt="Bocchi the Rock">
-                    </div>
 
-                    <div class="review-card-header">
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("i", $user_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-                        <div class="review-card-profile">
-                            <img src="../assets/img/pfp3.jpg" alt="profile" class="user-icon" width="50px" height="50px">
-                            <h4 class="review-card-username" id="profileUsername">User1_Fein</h4>
-                        </div>
+                while ($row = $result->fetch_assoc()) {
+                    echo '<div class="review-card">';
+                
+                    // Anime cover
+                    echo '<div class="review-anime-cover">';
+                    echo '<a href="../animes/anime.php?id=' . $row['Ani_ID'] . '">';
+                    echo '<img src="../' . htmlspecialchars($row['Cover_Img']) . '" alt="' . htmlspecialchars($row['Title']) . '">';
+                    echo '</a>';
+                    echo '</div>';
 
-                        <div class="review-card-body">
-                            <p class="review-card-score">6/10</p>
-                            <p class="review-card-text"><a href="../animes/bocchi-the-rock.html#profileUsername2">I thought it was going to be about a rock</a></p>
-                        </div>
+                    // Header: user profile + username
+                    echo '<div class="review-card-header">';
+                    echo '<div class="review-card-profile">';
+                    echo '<img src="' . htmlspecialchars($row['Profile_Img']) . '" alt="profile" class="user-icon" width="50px" height="50px">';
+                    echo '<h4 class="review-card-username" id="profileUsername">' . htmlspecialchars($row['Username']) . '</h4>';
+                    echo '</div>';
 
-                        <div class="review-card-header-text">
-                            <p class="review-card-date">Nov 14, 2024</p>
-                        </div>
+                    // Body: rating and review
+                    echo '<div class="review-card-body">';
+                    echo '<p class="review-card-score">' . htmlspecialchars($row['Rating']) . '/10</p>';
+                    echo '<p class="review-card-text">' . htmlspecialchars($row['Content']) . '</p>';
+                    echo '</div>';
 
-                    </div>
-                    
-                </div>
+                    // Date
+                    echo '<div class="review-card-header-text">';
+                    echo '<p class="review-card-date">' . htmlspecialchars($row['Rev_Date']) . '</p>';
+                    echo '</div>';
 
-                <div class="review-card">
+                    echo '</div>'; // Close review-card-header
+                    echo '</a>';
+                    echo '</div>'; // Close review-card
+                }
 
-                    <div class="review-anime-cover">
-                        <img src="../assets/img/cover-one-piece.jpg" alt="One Piece">
-                    </div>
-
-                    <div class="review-card-header">
-
-                        <div class="review-card-profile">
-                            <img src="../assets/img/pfp3.jpg" alt="profile" class="user-icon" width="50px" height="50px">
-                            <h4 class="review-card-username" id="profileUsername">User1_Fein</h4>
-                        </div>
-
-                        <div class="review-card-body">
-                            <p class="review-card-score">10/10</p>
-                            <p class="review-card-text"><a href="../animes/one-piece.html#profileUsername3">bro one piece or one PEAK</a></p>
-                        </div>
-
-                        <div class="review-card-header-text">
-                            <p class="review-card-date">May 21, 2007</p>
-                        </div>
-
-                    </div>
-                    
-                </div>
-
+                ?>
 
             </div>
-        </div>
+
+
+    </div>
+    </div>
     </div>
 
 

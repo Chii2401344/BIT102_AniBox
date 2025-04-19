@@ -14,27 +14,13 @@ document.addEventListener("DOMContentLoaded", function () {
     showSaveButton("username", "saveUserBtn");
     showSaveButton("email", "saveEmailBtn");
     showSaveButton("newPassword", "savePasswordBtn");
-    showSaveButton("confirmPassword", "confirmPasswordBtn");
     showSaveButton("aboutText", "saveAboutBtn");
     showSaveButton("profilePicture", "savePfpBtn");
     showSaveButton("bannerPicture", "saveBannerBtn");
 
-    // ------------------ Save Username & Email ------------------
-    function saveData(inputId, buttonId, storageKey, displayId, alertMessage) {
-        const input = document.getElementById(inputId);
-        const button = document.getElementById(buttonId);
-        const display = document.getElementById(displayId);
-
-        if (input && button && display) {
-            button.addEventListener("click", function () {
-                let newValue = input.value;
-                localStorage.setItem(storageKey, newValue);
-                display.textContent = newValue;
-                alert(alertMessage);
-                button.style.display = "none"; // Hide after saving
-            });
-        }
-    }
+    document.getElementById("aboutText").addEventListener("input", function () {
+        document.getElementById("saveAboutBtn").style.display = "inline-block";
+    });
 
     saveData("username", "saveUserBtn", "username", "profileUsername", "Username saved!");
     saveData("email", "saveEmailBtn", "email", "profileEmail", "Email saved!");
@@ -45,6 +31,45 @@ document.addEventListener("DOMContentLoaded", function () {
         let deactivateAlert = confirm("Are you sure you want to deactivate your account? This action cannot be undone.");
         if (deactivateAlert) {
             window.location.href = "delete-acc.php";
+        }
+    });
+
+    // ------------------ Check if passwords match ------------------
+    document.getElementById("savePasswordBtn").addEventListener("click", function (e) {
+        const newPassword = document.getElementById("newPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        const errorText = document.getElementById("passwordError");
+    
+        if (newPassword !== confirmPassword) {
+            e.preventDefault(); // stop form from submitting
+            errorText.style.display = "block";
+        } else {
+            errorText.style.display = "none";
+            // allow form to submit or send it manually via AJAX if needed
+            // document.getElementById("yourFormID").submit();
+        }
+    });
+
+    document.getElementById("confirmPassword").addEventListener("input", function () {
+        document.getElementById("passwordError").style.display = "none";
+    });
+
+    // ------------------ Display Success Password Update ------------------
+    document.addEventListener("DOMContentLoaded", function () {
+        const successAlert = document.getElementById("passwordSuccess");
+    
+        if (successAlert) {
+            setTimeout(() => {
+                successAlert.style.transition = "opacity 0.5s ease-out";
+                successAlert.style.opacity = "0";
+    
+                // After the fade, remove it from DOM
+                setTimeout(() => {
+                    if (successAlert.parentNode) {
+                        successAlert.parentNode.removeChild(successAlert);
+                    }
+                }, 500); // matches the transition time
+            }, 3000); // show for 3 seconds
         }
     });
 
