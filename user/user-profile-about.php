@@ -52,40 +52,8 @@ $user = $result->fetch_assoc();
             </div>
         </div>
 
-        <div class="about-bar">
-            <div class="FavoriteAnime">
-                <h2><strong>✦ Favorite Anime ✦</strong></h2>
-                <div class="fav-anime-card">
-                    <div class="fav-anime-list">
-                        <div class="fav-anime-cover">
-                            <img src="../assets/img/cover-one-piece.jpg" alt="One Piece">
-                        </div>
-                        <div class="fav-anime-title">
-                            <h4><a href="../animes/one-piece.html">One Piece</a></h4>
-                        </div>
-                    </div>
-
-                    <div class="fav-anime-list">
-                        <div class="fav-anime-cover">
-                            <img src="../assets/img/cover-bocchi-the-rock.jpg" alt="Bocchi The Rock">
-                        </div>
-                        <div class="fav-anime-title">
-                            <h4><a href="../animes/bocchi-the-rock.html">Bocchi The Rock</a></h4>
-                        </div>
-                    </div>
-
-                    <div class="fav-anime-list">
-                        <div class="fav-anime-cover">
-                            <img src="../assets/img/cover-kimi-no-na-wa.jpg" alt="Your Name">
-                        </div>
-                        <div class="fav-anime-title">
-                            <h4><a href="../animes/kimi-no-na-wa.html">Your Name</a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <?php include "user-favourite.php"; ?>
+        
     </div>
     <br>
     <br>

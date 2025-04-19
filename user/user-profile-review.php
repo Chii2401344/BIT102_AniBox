@@ -47,7 +47,7 @@ $user = $result->fetch_assoc();
     <div class="container">
 
             <!-- Section Below (Reviews) -->
-            <div class="review-container">
+            <div class="review-container" style="margin-top: 5%;">
 
                 <div class="review-header">
                     <h2 class="review"><strong>✦ ⋆.˚ Recent Reviews ˚.⋆ ✦</strong></h2>
