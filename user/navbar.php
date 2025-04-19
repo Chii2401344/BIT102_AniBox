@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // If not logged in, redirect to login page
+    header("Location: ../login/user-login.html");
+    exit();
+}
 
 // Get the User_ID from session
 $user_id = $_SESSION['user_id'];
