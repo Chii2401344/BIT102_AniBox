@@ -55,13 +55,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the sql query was successful
     if ($stmt->execute()) {
         // Sign up successful, store the user details in the session and redirect to user home page
-        $_SESSION['username'] = $username;
-        $_SESSION['email'] = $email;
-        $_SESSION['Password'] = $hashedPassword;
-
         echo "<script>alert('Sign-up successful!');</script>";
-        echo "<script>window.location.href = '../user/user-home.php';</script>";
-        exit();
+
+        $sql = "SELECT * FROM user WHERE Username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            $_SESSION['user_id'] = $row['User_ID'];
+            $_SESSION['username'] = $row['Username'];
+            $_SESSION['email'] = $row['Email'];
+            $_SESSION['Password'] = $row['Password'];
+            $_SESSION['About'] = $row['About'];
+            $_SESSION['Profile_Img'] = $row['Profile_Img'];
+            $_SESSION['Banner_Img'] = $row['Banner_Img'];
+            
+            echo "<script>window.location.href = '../user/user-home.php';</script>";
+            exit();
+
+        } else {
+            echo "<script>alert('Error retrieving user data.');</script>";
+            exit();
+        }
+        
     } else {
         // Error inserting data into the database
         echo "<script>alert('Error: " . $stmt->error . "');</script>";
