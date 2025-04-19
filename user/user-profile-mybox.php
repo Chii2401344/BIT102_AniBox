@@ -176,7 +176,7 @@ while ($row = $watchlist_result->fetch_assoc()) {
                                         <img src="../<?php echo $anime['Cover_Img']; ?>" alt="<?php echo $anime['Title']; ?>" width="5%">
                                     </td>
                                     <td>
-                                        <a class="anime-card-title" href="../animes/<?php echo strtolower(str_replace(' ', '-', $anime['Title'])); ?>.html">
+                                        <a class="anime-card-title" href="../animes/anime.php?id=<?php echo $anime['Ani_ID'] ?>">
                                             <?php echo $anime['Title']; ?>
                                         </a>
                                     </td>
@@ -188,7 +188,7 @@ while ($row = $watchlist_result->fetch_assoc()) {
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger" 
+                                        <button class="btn btn-danger" style="border-radius: 25px;"
                                                 data-anime-id="<?php echo $anime['Ani_ID']; ?>">
                                             Delete
                                         </button>
@@ -223,7 +223,7 @@ while ($row = $watchlist_result->fetch_assoc()) {
                                         <img src="../<?php echo $anime['Cover_Img']; ?>" alt="<?php echo $anime['Title']; ?>" width="5%">
                                     </td>
                                     <td>
-                                        <a class="anime-card-title" href="../animes/<?php echo strtolower(str_replace(' ', '-', $anime['Title'])); ?>.html">
+                                        <a class="anime-card-title" href="../animes/anime.php?id=<?php echo $anime['Ani_ID'] ?>">
                                             <?php echo $anime['Title']; ?>
                                         </a>
                                     </td>
@@ -235,7 +235,7 @@ while ($row = $watchlist_result->fetch_assoc()) {
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger" 
+                                        <button class="btn btn-danger" style="border-radius: 25px;"
                                                 data-anime-id="<?php echo $anime['Ani_ID']; ?>">
                                             Delete
                                         </button>
@@ -271,7 +271,7 @@ while ($row = $watchlist_result->fetch_assoc()) {
                                         <img src="../<?php echo $anime['Cover_Img']; ?>" alt="<?php echo $anime['Title']; ?>" width="5%">
                                     </td>
                                     <td>
-                                        <a class="anime-card-title" href="../animes/<?php echo strtolower(str_replace(' ', '-', $anime['Title'])); ?>.html">
+                                        <a class="anime-card-title" href="../animes/anime.php?id=<?php echo $anime['Ani_ID'] ?>">
                                             <?php echo $anime['Title']; ?>
                                         </a>
                                     </td>
@@ -283,7 +283,7 @@ while ($row = $watchlist_result->fetch_assoc()) {
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger" 
+                                        <button class="btn btn-danger" style="border-radius: 25px;"
                                                 data-anime-id="<?php echo $anime['Ani_ID']; ?>">
                                             Delete
                                         </button>
@@ -396,7 +396,7 @@ while ($row = $watchlist_result->fetch_assoc()) {
                 const animeTitle = this.closest('tr').querySelector('.anime-card-title').textContent;
                 
                 // Show confirmation dialog
-                if (confirm(`Are you sure you want to remove this from your watchlist?`)) {
+                if (confirm(`Are you sure you want to remove this from your Box?`)) {
                     // Send delete request
                     fetch('delete-watchlist.php', {
                         method: 'POST',
