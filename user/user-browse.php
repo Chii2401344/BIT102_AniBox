@@ -98,10 +98,12 @@ $result = $conn->query($sql); // Execute the query
                     <div class="col anime-item">
                         <div class="anime-card">
                             <div class="anime-cover">
-                                <img src="../<?= $row['Cover_Img'] ?>" alt="<?= $row['Title'] ?>" class="img-fluid">
+                                <a href="../animes/anime.php?id=<?= $row['Ani_ID'] ?>" style="text-decoration: none; color: inherit;">
+                                    <img src="../<?= $row['Cover_Img'] ?>" alt="<?= $row['Title'] ?>" class="img-fluid">
+                                </a>
                             </div>
                             <div class="anime-caption">
-                                <h3><?= $row['Title'] ?></h3>
+                                <h3><a href="../animes/anime.php?id=<?= $row['Ani_ID'] ?>" style="text-decoration: none; color: inherit;"><?= $row['Title'] ?></a></h3>
                             </div>
                         </div>
                     </div>

@@ -102,6 +102,33 @@
     text-align: center;
 }
 
+/* Style for links inside h3 tags */
+.title-link {
+    color: var(--earthy-brown) !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease;
+}
+
+.title-link:hover {
+    color: var(--peach-pink) !important;
+    text-decoration: none !important;
+}
+
+.anime-cover a {
+    display: block;
+    text-decoration: none !important;
+}
+
+/* Add a more specific selector for the anime card links */
+.anime-card a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.anime-card a:hover {
+    text-decoration: none;
+}
+
 .section-seperator {
     height: 4rem;
     background: linear-gradient(135deg, var(--soft-green), var(--sky-blue));
