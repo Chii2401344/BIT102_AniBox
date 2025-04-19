@@ -251,9 +251,15 @@ session_start();
                 $sql = "SELECT r.*, u.Username, u.Profile_Img 
                                 FROM review r
                                 JOIN user u ON r.User_ID = u.User_ID
-                                WHERE r.Ani_ID = '$ani_id'
-                                ORDER BY r.Rev_Date DESC";
-                $result = $conn->query($sql);
+                                WHERE r.Ani_ID = ?
+                                ORDER BY 
+                                    CASE WHEN r.User_ID = ? THEN 0 ELSE 1 END, 
+                                    r.Rev_Date DESC";
+                $stmt = $conn->prepare($sql);
+                $user_id = $_SESSION['user_id'] ?? null;
+                $stmt->bind_param("ii", $ani_id, $user_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
@@ -298,6 +304,7 @@ session_start();
                 } else {
                     echo '<p>No reviews yet! (◞‸◟；) Be the first to leave one?</p>';
                 }
+                
                 $conn->close();
                 ?>
 
