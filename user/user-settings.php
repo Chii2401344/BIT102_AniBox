@@ -238,6 +238,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savePasswordBtn'])) {
             </div>
         </form>
     </div>
+    <p>testing</p>
 
     <footer class="footer">
         <div class="container">
