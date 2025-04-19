@@ -262,29 +262,6 @@ hr {border: 1px solid rgba(255, 255, 255, 0.5);
     font-size: 0.938rem;
     margin-top: 0.313rem;}
 
-.btn.btn-light {
-    background:linear-gradient(
-        135deg,
-        rgba(168, 213, 186, 1),
-        rgba(167, 198, 237, 1));
-    color: white;
-    font-size: 0.938rem;
-    padding: 0.625rem;
-    margin-left: 1.25rem;
-    border: none;
-    text-align: center;
-    border-radius: 40px;
-    text-align: center;
-    border-width: 0.625rem;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-    align-self: end;
-    border: 1px solid white;
-    line-height: 1.25rem;
-    width: auto;
-    transition: all 0.3s ease;}
-
-.btn.btn-light:hover {font-size:1rem;}
-
 .recommendation-container hr {border: 1px solid var(--earthy-brown);
     margin-top: 1.25rem;
     margin-bottom: 1.25rem;}
