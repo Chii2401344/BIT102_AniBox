@@ -1,6 +1,6 @@
 <?php
 require 'connect.php';
-include '../user/navbar.php';
+include 'anime-navbar.php';
 
 // Step 1: Get ID from URL and validate it
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
