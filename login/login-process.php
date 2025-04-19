@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass = $_POST["password"];
 
     // Validate the input to prevent SQL injection
-    $sql = "SELECT User_ID, Password FROM user WHERE Username = ?";
+    $sql = "SELECT * FROM user WHERE Username = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $user);
     $stmt->execute();
@@ -23,6 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Login successful
             $_SESSION['user_id'] = $row['User_ID'];
             $_SESSION['username'] = $user;
+            $_SESSION['email'] = $row['Email'];
+            $_SESSION['Password'] = $row['Password'];
+            $_SESSION['About'] = $row['About'];
+            $_SESSION['Profile_Img'] = $row['Profile_Img'];
+            $_SESSION['Banner_Img'] = $row['Banner_Img'];
             
             header("Location: ../user/user-home.php");
             exit();
