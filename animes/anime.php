@@ -100,7 +100,7 @@ body {
         </div>
         <!-- Add to Box Button -->
         <div class="add-button">
-            <button class="btn btn-primary"><strong>+ Add to Box</strong></button>
+            <button class="btn btn-primary" id="addToBoxBtn" data-anime-id="<?php echo $ani_id; ?>"><strong>+ Add to Box</strong></button>
         </div>
         <br>
     </div>
@@ -192,7 +192,6 @@ body {
                         echo '<div class="recommendation-details">';
                         echo '<h4 class="recommendation-title"><strong>' . htmlspecialchars($rec['Title']) . '</strong></h4>';
                         echo '<p class="recommendation-synopsis">' . htmlspecialchars($rec['Description']) . '</p>';
-                        echo '<button class="btn btn-light"><strong>+ Add to Box</strong></button>';
                         echo '</div>';
                         echo '</div>';
                         
@@ -317,6 +316,35 @@ body {
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToBoxBtn = document.getElementById('addToBoxBtn');
+            
+            addToBoxBtn.addEventListener('click', function() {
+                const animeId = this.getAttribute('data-anime-id');
+                
+                fetch('add-to-watchlist.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ anime_id: animeId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                    } else {
+                        alert(data.error || 'Failed to add to watchlist');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while adding to watchlist');
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
