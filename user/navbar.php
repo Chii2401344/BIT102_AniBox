@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // If not logged in, redirect to login page
+    header("Location: ../login/user-login.html");
+    exit();
+}
+
+// Get the User_ID from session
+$user_id = $_SESSION['user_id'];
+
+require '../login/connect.php'; // Include the database connection file
+$sql = "SELECT * FROM user WHERE user_id = '$user_id'"; // SQL query to fetch user data
+$result = $conn->query($sql); // Execute the query
+$user = $result->fetch_assoc(); // Fetch the user data
+
+?>
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg">
@@ -19,16 +38,16 @@
                         <a class="nav-link" href="user-profile-mybox.php">My Box</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user-profile-about.html">Profile</a>
+                        <a class="nav-link" href="user-profile-about.php">Profile</a>
                     </li>
                 </ul>
                 <hr class="d-lg-none my-2 text-dark-50">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="user-settings.html" class="d-none d-lg-block me-3">
+                        <a href="user-settings.php" class="d-none d-lg-block me-3">
                             <i class="fa-solid fa-gear"></i>
                         </a>
-                        <a class="nav-link d-block d-lg-none" href="user-settings.html">Settings</a>
+                        <a class="nav-link d-block d-lg-none" href="user-settings.php">Settings</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" id="logoutDesktop" class="d-none d-lg-block me-3">
@@ -39,7 +58,7 @@
                 </ul>
 
                 <!-- Profile Picture -->
-                <a href="user-profile-about.html" class="card-container d-none d-lg-block">
+                <a href="user-profile-about.php" class="card-container d-none d-lg-block">
                     <img src="<?php echo $user['Profile_Img']; ?>" alt="profile" class="user-icon">
                 </a>
 
