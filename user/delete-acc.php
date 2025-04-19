@@ -16,7 +16,7 @@ if ($stmt->execute()) {
     // Logout the user and redirect to the login page
     session_destroy();
     echo "<script>alert('Account deleted successfully. You will be redirected to home page.');</script>";
-    echo "<script>window.location.href = '../index.html';</script>";
+    echo "<script>window.location.href = '../index.php';</script>";
     exit();
 } else {
     // Error deleting account

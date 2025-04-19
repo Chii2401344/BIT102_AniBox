@@ -163,6 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savePasswordBtn'])) {
     <link rel="stylesheet" href="user-navbar.css">
     <link rel="stylesheet" href="user-profile.css">
     <script src="scripts1.js"></script>
+    <script src="delete-acc.js"></script>
 </head>
 
 <body>

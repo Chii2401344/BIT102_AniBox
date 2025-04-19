@@ -27,12 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // ------------------ Account Deactivation ------------------
-    document.getElementById('deactivateAccountBtn').addEventListener("click", function() {
+    /*document.getElementById('deactivateAccountBtn').addEventListener("click", function() {
         let deactivateAlert = confirm("Are you sure you want to deactivate your account? This action cannot be undone.");
         if (deactivateAlert) {
             window.location.href = "delete-acc.php";
         }
-    });
+    });*/
 
     // ------------------ Check if passwords match ------------------
     document.getElementById("savePasswordBtn").addEventListener("click", function (e) {
