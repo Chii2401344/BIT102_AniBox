@@ -37,7 +37,6 @@ $color = match (strtolower($genre)) {
     default => 'gray'
 };
 
-session_start();
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +53,6 @@ session_start();
     <link rel="stylesheet" href="../assets/theme.css">
     <link rel="stylesheet" href="../user/user-navbar.css">
     <link rel="stylesheet" href="anime.css">
-
 </head>
 
 <!-- Container for Anime Details and Add to Box Button Section -->

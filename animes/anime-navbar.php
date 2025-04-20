@@ -44,7 +44,7 @@ $user = $result->fetch_assoc(); // Fetch the user data
                 <hr class="d-lg-none my-2 text-dark-50">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="user-settings.php" class="d-none d-lg-block me-3">
+                        <a href="../user/user-settings.php" class="d-none d-lg-block me-3">
                             <i class="fa-solid fa-gear"></i>
                         </a>
                         <a class="nav-link d-block d-lg-none" href="../user/user-settings.php">Settings</a>
@@ -58,7 +58,7 @@ $user = $result->fetch_assoc(); // Fetch the user data
                 </ul>
 
                 <!-- Profile Picture -->
-                <a href="user-profile-about.php" class="card-container d-none d-lg-block">
+                <a href="../user/user-profile-about.php" class="card-container d-none d-lg-block">
                     <img src="<?php echo $user['Profile_Img']; ?>" alt="profile" class="user-icon">
                 </a>
 
