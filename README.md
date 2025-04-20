@@ -12,18 +12,17 @@ AniBox is a web-based platform designed for anime enthusiasts to discover, track
 5. Access the application through your web browser
 
 ## Project Structure
-AniBox/
-├── assets/              # Images, Global CSS, and other static assets
-├── login/               # Pages related to Login and Sign Up
-├── user/                # Pages only accessible in the logged-in state 
-├── animes/              # Pages for anime details and review functions
-├── composer.json        # PHP dependency management configuration
-├── composer.lock        # Locked versions of PHP dependencies
-├── index.php            # Homepage
-├── index.css            # Homepage CSS
-├── browse.php           # Browsing section included in index
-├── aniboxdb.sql         # Database schema for the project
-└── README.md            # Project documentation
+- assets - Images, Global CSS, and other static assets
+- login -  Pages related to Login and Sign Up
+- user - Pages only accessible in the logged-in state 
+- animes - Pages for anime details and review functions
+- composer.json - PHP dependency management configuration
+- composer.lock - Locked versions of PHP dependencies
+- index.php - Homepage
+- index.css - Homepage CSS
+- browse.php - Browsing section included in index
+- aniboxdb.sql - Database schema for the project
+- README.md - Project documentation
 
 ## Contributors
 - Student B2300486
