@@ -40,78 +40,80 @@ $user = $result->fetch_assoc();
 
 <body>
 
+    <!-- Include the Navigation Bar -->
     <?php include "navbar.php"; ?>
-
     <?php include "user-profile-navbar.php"; ?>
 
     <div class="container">
 
-            <!-- Section Below (Reviews) -->
-            <div class="review-container" style="margin-top: 5%;">
+        <!-- Reviews Container -->
+        <div class="review-container" style="margin-top: 5%;">
 
-                <div class="review-header">
-                    <h2 class="review"><strong>✦ ⋆.˚ Recent Reviews ˚.⋆ ✦</strong></h2>
-                </div>
+            <!-- Review Header -->
+            <div class="review-header">
+                <h2 class="review"><strong>✦ ⋆.˚ Recent Reviews ˚.⋆ ✦</strong></h2>
+            </div>
 
-                
-                <?php
-                // Get all reviews by this user
-                $sql = "SELECT r.*, a.Title, a.Cover_Img, u.Username, u.Profile_Img 
+
+            <?php
+            // SQL query to fetch reviews by the logged-in user
+            $sql = "SELECT r.*, a.Title, a.Cover_Img, u.Username, u.Profile_Img 
                         FROM review r 
                         JOIN anime a ON r.Ani_ID = a.Ani_ID 
                         JOIN user u ON r.User_ID = u.User_ID
                         WHERE r.User_ID = ? 
                         ORDER BY r.Rev_Date DESC";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("i", $user_id);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
+            // Error message if no reviews are found
+            if ($result->num_rows == 0) {
+                echo '<div class="no-reviews">No reviews yet!</div>';
+            } else {
+                // Iterates through the user's reviews and displays them
                 while ($row = $result->fetch_assoc()) {
                     echo '<div class="review-card">';
-                
-                    // Anime cover
+
+                    // Display of Anime Cover Image and Title
                     echo '<div class="review-anime-cover">';
                     echo '<a href="../animes/anime.php?id=' . $row['Ani_ID'] . '">';
                     echo '<img src="../' . htmlspecialchars($row['Cover_Img']) . '" alt="' . htmlspecialchars($row['Title']) . '">';
                     echo '</a>';
                     echo '</div>';
 
-                    // Header: user profile + username
+                    // Display of User Profile Image and Username
                     echo '<div class="review-card-header">';
                     echo '<div class="review-card-profile">';
                     echo '<img src="' . htmlspecialchars($row['Profile_Img']) . '" alt="profile" class="user-icon" width="50px" height="50px">';
                     echo '<h4 class="review-card-username" id="profileUsername">' . htmlspecialchars($row['Username']) . '</h4>';
                     echo '</div>';
 
-                    // Body: rating and review
+                    // Display of Review Rating and Content
                     echo '<div class="review-card-body">';
                     echo '<p class="review-card-score">' . htmlspecialchars($row['Rating']) . '/10</p>';
                     echo '<p class="review-card-text">' . htmlspecialchars($row['Content']) . '</p>';
                     echo '</div>';
 
-                    // Date
+                    // Display of Review Date
                     echo '<div class="review-card-header-text">';
-                    echo '<p class="review-card-date">' . htmlspecialchars($row['Rev_Date']) . '</p>';
+                    echo '<p class=""review-card-date">' .date("M j, Y", strtotime($row["Rev_Date"])). '</p>';
                     echo '</div>';
 
                     echo '</div>'; // Close review-card-header
-                    echo '</a>';
                     echo '</div>'; // Close review-card
                 }
+            }
+            ?>
 
-                ?>
-
-            </div>
-
+        </div>
 
     </div>
     </div>
     </div>
 
-
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p class="text-center mb-0">&copy; 2025 AniBox. All rights reserved.</p>
