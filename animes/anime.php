@@ -56,6 +56,94 @@ $color = match (strtolower($genre)) {
     <link rel="stylesheet" href="../assets/theme.css">
     <link rel="stylesheet" href="../user/user-navbar.css">
     <link rel="stylesheet" href="anime.css">
+
+    <!-- Additional Styling for the Page -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-image:
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, white 45%),
+                url('../<?php echo htmlspecialchars($banner_img); ?>');
+            background-position: top;
+        }
+
+        .review-dropdown {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+        }
+
+        .btn.btn-info {
+            font-size: 1rem;
+            border-radius: 5rem;
+            border: none;
+            background-color: var(--light-blue);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn.btn-info:hover {
+            background-color: var(--light-blue-hover);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+
+        .genre {
+            margin: 1.25rem;
+            margin-left: 1rem;
+            font-size: 1.25rem;
+            border-radius: 30rem;
+            padding: 0.313rem;
+            width: fit-content;
+        }
+
+        .dropdown-menu {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 0.5rem;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--light-blue);
+            color: #000;
+        }
+
+
+        #modal-rating {
+            border: 1px solid var(--light-blue);
+            border-radius: 5px;
+            width: 30%
+        }
+
+        #modal-content {
+            border: 1px solid var(--light-blue);
+            border-radius: 5px;
+            height: 3rem;
+            width: 80%
+        }
+
+        .btn.btn-success {
+            border: none;
+            background: linear-gradient(135deg, var(--soft-green), var(--sky-blue));
+            border-color: var(--soft-green);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, var(--soft-green-hover), var(--sky-blue-hover));
+            border-color: var(--soft-green-hover);
+            transform: translateY(-2px);
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -258,7 +346,7 @@ $color = match (strtolower($genre)) {
             <hr>
 
             <!-- Container for All Reviews -->
-            <div class="review-comments">
+            <div class="review-comments" id = "review-comments">
 
                 <?php
                 $sql = "SELECT r.*, u.Username, u.Profile_Img # Retrieves review and user data
@@ -388,94 +476,6 @@ $color = match (strtolower($genre)) {
             <p class="text-center mb-0">&copy; 2025 AniBox. All rights reserved.</p>
         </div>
     </footer>
-
-    <!-- Additional Styling for the Page -->
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background-image:
-                linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, white 45%),
-                url('../<?php echo htmlspecialchars($banner_img); ?>');
-            background-position: top;
-        }
-
-        .review-dropdown {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-        }
-
-        .btn.btn-info {
-            font-size: 1rem;
-            border-radius: 5rem;
-            border: none;
-            background-color: var(--light-blue);
-            border-radius: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .btn.btn-info:hover {
-            background-color: var(--light-blue-hover);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-
-        .genre {
-            margin: 1.25rem;
-            margin-left: 1rem;
-            font-size: 1.25rem;
-            border-radius: 30rem;
-            padding: 0.313rem;
-            width: fit-content;
-        }
-
-        .dropdown-menu {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            padding: 0.5rem;
-        }
-
-        .dropdown-item:hover {
-            background-color: var(--light-blue);
-            color: #000;
-        }
-
-
-        #modal-rating {
-            border: 1px solid var(--light-blue);
-            border-radius: 5px;
-            width: 30%
-        }
-
-        #modal-content {
-            border: 1px solid var(--light-blue);
-            border-radius: 5px;
-            height: 3rem;
-            width: 80%
-        }
-
-        .btn.btn-success {
-            border: none;
-            background: linear-gradient(135deg, var(--soft-green), var(--sky-blue));
-            border-color: var(--soft-green);
-            border-radius: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-success:hover {
-            background: linear-gradient(135deg, var(--soft-green-hover), var(--sky-blue-hover));
-            border-color: var(--soft-green-hover);
-            transform: translateY(-2px);
-        }
-
-        a {
-            text-decoration: none;
-        }
-    </style>
 
     <!-- JavaScript for Modal -->
     <script>

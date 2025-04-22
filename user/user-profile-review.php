@@ -78,16 +78,15 @@ $user = $result->fetch_assoc();
 
                     // Display of Anime Cover Image and Title
                     echo '<div class="review-anime-cover">';
-                    echo '<a href="../animes/anime.php?id=' . $row['Ani_ID'] . '">';
-                    echo '<img src="../' . htmlspecialchars($row['Cover_Img']) . '" alt="' . htmlspecialchars($row['Title']) . '">';
-                    echo '</a>';
+                    echo '<a href="../animes/anime.php?id=' . $row['Ani_ID'] . '#review-comments" style="text-decoration: none;">';
+                    echo '<img src="../' . htmlspecialchars($row['Cover_Img']) . '" alt="' .htmlspecialchars($row['Title']). '">';               
                     echo '</div>';
 
                     // Display of User Profile Image and Username
                     echo '<div class="review-card-header">';
                     echo '<div class="review-card-profile">';
                     echo '<img src="' . htmlspecialchars($row['Profile_Img']) . '" alt="profile" class="user-icon" width="50px" height="50px">';
-                    echo '<h4 class="review-card-username" id="profileUsername">' . htmlspecialchars($row['Username']) . '</h4>';
+                    echo '<h4 class="review-card-username" id="profileUsername">' .htmlspecialchars($row['Username']). '</h4>';
                     echo '</div>';
 
                     // Display of Review Rating and Content
@@ -102,6 +101,7 @@ $user = $result->fetch_assoc();
                     echo '</div>';
 
                     echo '</div>'; // Close review-card-header
+                    echo '</a>';
                     echo '</div>'; // Close review-card
                 }
             }
